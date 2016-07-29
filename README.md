@@ -18,7 +18,9 @@ use Vperyod\SimpleLock\LockHandler;
 use Vperyod\SimpleLock\Verify\Password;
 
 if ($_ENV['LOCK']) {
-    $adr->middle(new LockHandler(new Password($_ENV['LOCK_PW'])));
+    $password    = new Password($_ENV['LOCK_PW']); // Password Verifier
+    $lockHandler = new LockHandler($password);     // Lock Handler Middleware
+    $stack->middleware($lockHandler);              // Add middleware early
 }
 ```
 
