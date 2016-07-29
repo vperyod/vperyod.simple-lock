@@ -77,7 +77,7 @@ class Password implements VerifyInterface
     public function isValid(Request $request)
     {
         return $this->isAttempt($request)
-            && $this->verifyPassword($request->getParsedBody());
+            && $this->verifyPassword((array) $request->getParsedBody());
     }
 
     /**
@@ -91,9 +91,8 @@ class Password implements VerifyInterface
      */
     public function isAttempt(Request $request)
     {
-        $body = $request->getParsedBody();
+        $body = (array) $request->getParsedBody();
         return $request->getMethod() === 'POST'
-            && is_array($body)
             && array_key_exists($this->field, $body);
     }
 
