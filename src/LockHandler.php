@@ -92,16 +92,45 @@ class LockHandler
      */
     public function __invoke(Request $request, Response $response, callable $next)
     {
-        if ($this->lock->isUnlocked() || $this->unlock($request)) {
+        if ($this->isAllowed($request)) {
             $request = $this->lock->getIntent() ?: $request;
             return $next($request, $response);
         }
 
+        $this->storeIntent($request);
+
+        return $this->prompt->respond($response);
+    }
+
+    /**
+     * Store intent
+     *
+     * @param Request $request PSR7 Request
+     *
+     * @return void
+     *
+     * @access protected
+     */
+    protected function storeIntent(Request $request)
+    {
         if (! $this->verify->isAttempt($request)) {
             $this->lock->setIntent($request);
         }
+    }
 
-        return $this->prompt->respond($response);
+    /**
+     * Is request allowed?
+     *
+     * @param Request $request PSR7 Request
+     *
+     * @return bool
+     *
+     * @access protected
+     */
+    protected function isAllowed(Request $request)
+    {
+        return $this->lock->isUnlocked()
+            || $this->unlock($request);
     }
 
     /**
