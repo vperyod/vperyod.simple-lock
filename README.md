@@ -24,7 +24,7 @@ if ($_ENV['LOCK']) {
 
 
 [ico-version]: https://img.shields.io/packagist/v/vperyod/simple-lock.svg?style=flat-square
-[ico-travis]: https://img.shields.io/travis/vperyod/vperyod.simple-lock/master.svg?style=flat-square
+[ico-travis]: https://img.shields.io/travis/vperyod/vperyod.simple-lock/develop.svg?style=flat-square
 [ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/vperyod/vperyod.simple-lock.svg?style=flat-square
 [ico-code-quality]: https://img.shields.io/scrutinizer/g/vperyod/vperyod.simple-lock.svg?style=flat-square
 
